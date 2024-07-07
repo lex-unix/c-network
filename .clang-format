@@ -1,0 +1,5 @@
+UseTab: ForContinuationAndIndentation
+IndentWidth: 4
+TabWidth: 4
+IndentAccessModifiers: true
+AllowShortFunctionsOnASingleLine: None
