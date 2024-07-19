@@ -43,7 +43,7 @@ int main() {
 	struct addrinfo hints;
 	memset(&hints, 0, sizeof(hints));
 
-	hints.ai_family = AF_INET;       /* IPv4 */
+	hints.ai_family = AF_INET6;      /* IPv6 */
 	hints.ai_socktype = SOCK_STREAM; /* TCP */
 	hints.ai_flags = AI_PASSIVE;     /* listen on any availabe net interface */
 
@@ -57,6 +57,12 @@ int main() {
 
 	if (!ISVALIDSOCKET(socket_listen)) {
 		fprintf(stderr, "socket() failed. (%d)\n", GETSOCKETERRNO());
+		return 1;
+	}
+
+	int option = 0;
+	if (setsockopt(socket_listen, IPPROTO_IPV6, IPV6_V6ONLY, (void *)&option, sizeof(option))) {
+		fprintf(stderr, "setsockopt() failed. (%d)\n", GETSOCKETERRNO());
 		return 1;
 	}
 
